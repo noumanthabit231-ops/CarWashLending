@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarWash Manager — Профессиональный сервис онлайн-бронирования автомоек</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00f0ff;
+            --primary-glow: rgba(0, 240, 255, 0.4);
+            --bg: #0a0a0c;
+            --surface: #141416;
+            --border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-dim: #a1a1aa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: rgba(10, 10, 12, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        nav a {
+            color: var(--text-dim);
+            text-decoration: none;
+            margin-left: 32px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 64px;
+            line-height: 1.1;
+            font-weight: 800;
+            margin-bottom: 24px;
+        }
+
+        .hero-text p {
+            font-size: 20px;
+            color: var(--text-dim);
+            margin-bottom: 40px;
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 32px;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5), 0 0 40px var(--primary-glow);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 18px 36px;
+            background: var(--primary);
+            color: #000;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 18px;
+            box-shadow: 0 10px 20px var(--primary-glow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px var(--primary-glow);
+        }
+
+        /* Features */
+        .features {
+            padding: 100px 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+        }
+
+        .feature-card h3 {
+            color: var(--primary);
+            margin-bottom: 16px;
+            font-size: 20px;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .services h2 {
+            font-size: 48px;
+            margin-bottom: 48px;
+        }
+
+        .service-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .service-item {
+            padding: 32px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .service-price {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        /* Legal Footer */
+        footer {
+            padding: 80px 0 40px;
+            background: #000;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-info p {
+            color: var(--text-dim);
+            margin-bottom: 24px;
+            max-width: 400px;
+        }
+
+        .legal-links h4 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .legal-links a {
+            display: block;
+            color: var(--text-dim);
+            text-decoration: none;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .legal-links a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            color: var(--text-dim);
+            font-size: 14px;
+            text-align: center;
+            opacity: 0.5;
+        }
+
+        /* Legal Modal Placeholder */
+        .legal-section {
+            display: none;
+            padding: 100px 0;
+        }
+
+        .legal-content {
+            background: var(--surface);
+            padding: 60px;
+            border-radius: 24px;
+            font-size: 14px;
+            color: var(--text-dim);
+        }
+
+        .legal-content h2 {
+            color: var(--text-main);
+            margin-bottom: 24px;
+        }
+
+        .legal-content h3 {
+            color: var(--primary);
+            margin-top: 24px;
+            margin-bottom: 12px;
+        }
+
+        .legal-content p {
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 40px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+            <a href="#" class="logo">CarWash Pro</a>
+            <nav>
+                <a href="#services">Услуги</a>
+                <a href="#about">О нас</a>
+                <a href="#legal">Правовая информация</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero container">
+            <div class="hero-text">
+                <h1>Масштабируйте свой бизнес</h1>
+                <p>CarWash Pro — это комплексная платформа для автоматизации автомоек. Привлекайте больше клиентов и
+                    управляйте очередями онлайн.
+                </p>
+                <a href="https://wa.me/77478504881" class="btn">Подключить автомойку</a>
+            </div>
+            <div class="hero-image">
+                <img src="hero.png" alt="CarWash App">
+            </div>
+        </section>
+
+        <div class="container">
+            <section class="features">
+                <div class="feature-card">
+                    <h3>Удобство для клиентов</h3>
+                    <p>Ваши клиенты будут выбирать удобное время и свободный бокс прямо с экрана смартфона. Система
+                        покажет актуальный статус в реальном времени.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Прием платежей</h3>
+                    <p>Получайте оплату онлайн от клиентов любого банка Казахстана. Мы обеспечиваем полную безопасность
+                        транзакций через Freedom Pay.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Лояльность и контроль</h3>
+                    <p>Автоматические уведомления напомнят вашим клиентам о записи, снижая вероятность простоев и
+                        повышая возвращаемость.</p>
+                </div>
+            </section>
+
+            <section id="services" class="services">
+                <h2>Прозрачные условия</h2>
+                <p style="color: var(--text-dim); margin-bottom: 40px; font-size: 18px;">Мы не берем абонентскую плату.
+                    Вы платите только за результат.</p>
+                <div class="service-list" style="justify-content: center; display: flex;">
+                    <div class="service-item" style="max-width: 500px; width: 100%;">
+                        <span>Комиссия за успешную транзакцию</span>
+                        <span class="service-price">5%</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Legal Info Sections for PayBox Approval -->
+            <section id="legal" class="legal-content">
+                <h2>Правовая информация</h2>
+                <div id="refund-policy">
+                    <h3>Политика возврата средств</h3>
+                    <p>Приложение CarWash Pro выступает в роли агрегатора услуг. Возврат денежных средств за неоказанные
+                        услуги мойки осуществляется в соответствии с правилами конкретной автомойки. В случае отмены
+                        бронирования пользователем более чем за 2 часа, комиссия и депозит возвращаются в полном объеме
+                        через платежную систему.</p>
+                </div>
+                <div id="privacy-policy">
+                    <h3>Политика конфиденциальности</h3>
+                    <p>Сервис CarWash Pro (ИП HIKM AI) собирает и использует личные данные пользователей (имя, номер
+                        телефона, номер автомобиля) исключительно для функционирования системы бронирования. Мы
+                        гарантируем безопасность данных в соответствии с законодательством Республики Казахстан.
+                        Платежные транзакции защищены протоколами Freedom Pay.</p>
+                </div>
+                <div id="terms">
+                    <h3>Условия использования (Оферта)</h3>
+                    <p>Используя приложение CarWash Pro, вы соглашаетесь с условиями бронирования и оплаты. Сервис
+                        предоставляет платформу для связи между автовладельцами и автомойками. Ответственность за
+                        качество мойки несет исполнитель (автомойка).</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid" id="about">
+                <div class="footer-info">
+                    <a href="#" class="logo" style="margin-bottom: 20px; display: block;">CarWash Pro</a>
+                    <p>Технологическая платформа для оптимизации бизнеса автомоек в Казахстане. Масштабируйте свой
+                        бизнес вместе с нами.</p>
+                    <div style="font-size: 14px; color: var(--text-dim);">
+                        <p><strong>ИП HIKM AI</strong><br>
+                            ИИН/БИН: 050721501199<br>
+                            Адрес: Алматинская обл., г. Каскелен<br>
+                            Тел: +7 747 850 4881<br>
+                            Email: fabdullayev168@gmail.com</p>
+                    </div>
+                </div>
+                <div class="legal-links">
+                    <h4>Навигация</h4>
+                    <a href="#services">Условия</a>
+                    <a href="#about">О нас</a>
+                </div>
+                <div class="legal-links">
+                    <h4>Документы</h4>
+                    <a href="#refund-policy">Возврат</a>
+                    <a href="#privacy-policy">Приватность</a>
+                    <a href="#terms">Оферта</a>
+                </div>
+            </div>
+            <p class="copyright">© 2026 CarWash Pro (ИП HIKM AI). Все права защищены. Разработано в Казахстане.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
